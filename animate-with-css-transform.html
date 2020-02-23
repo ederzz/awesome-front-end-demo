@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* children will be positioned relativly to this element */
+        .square {
+            position: relative;
+            height: 100px;
+        }
+
+        .left,
+        .center,
+        .right {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: #222;
+        }
+
+        .left {
+            background: red
+        }
+
+        .center {
+            background: yellow
+        }
+
+        .right {
+            background: blue
+        }
+
+
+        /* we need room for a 20 pixel border radius (on one side) */
+        .left,
+        .right {
+            width: 20px
+        }
+
+        .left {
+            border-radius: 20px 0 0 20px
+        }
+
+        .right {
+            border-radius: 0 20px 20px 0
+        }
+
+
+        /* child layout definitions */
+        .center {
+            /* center needs to be 20 pixels from the left, 
+            so it doesn't overlap with the .left element */
+            left: 20px;
+
+            /* needs a width of 1 pixel, this causes 
+            scaleX(60) is equal to 60 pixels */
+            width: 1px;
+            transform: scaleX(60);
+
+            /* we need to scale the texture from the left side 
+            for it to align correctly, default is center */
+            transform-origin: left;
+        }
+
+        .right {
+            /* we need to move the right element to align with
+            the right side of the .center element 
+            20px + 60px = 80px */
+            transform: translateX(80px);
+        }
+
+        .center {
+            animation: center-animate 1s ease infinite alternate;
+        }
+
+        .right {
+            animation: right-animate 1s ease infinite alternate;
+        }
+
+        @keyframes right-animate {
+            0% {
+                transform: translateX(140px)
+            }
+
+            100% {
+                transform: translateX(20px)
+            }
+        }
+
+        @keyframes center-animate {
+            0% {
+                transform: scaleX(121)
+            }
+
+            100% {
+                transform: scaleX(1)
+            }
+        }
+
+
+
+        /* center */
+        .square {
+            position: absolute;
+            left: calc(50% - 80px);
+            top: calc(50% - 50px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- https://codepen.io/rikschennink/pen/eYmoZLY?editors=1100&__cf_chl_jschl_tk__=34c9b877a561493c0d810ebb0732ea2896f96f36-1582429314-0-AW_kS98ki-ON4_fnQ9CMYLYgDptJQtwlmmbMB5LnkzKxGSuOghTjfxLaU2eYDf2MYRR8UW7cQN9SbNmJfT8SReRybdYsskGRtwA1ak_K0l59XdEgB-hHQRTwt1ecwwtaVZPeSKaZr8uC6QjLWiVCHruMQpJ8PTGhBuYP-pIUQNNEXmenUXFO0x9ToN40lht-w9j4siB1gSjWOB3izDR2IA39s3pbyK0rWnw6DNY6NhENy2khtGfG3wHouSAFT6nHlGsr8Gio68WViRF9eqAJl5m1qmWqb6nUQGf1HBqrSLLd6yRWQsZ2iGtsO94q61WUmJ3rxZFgIwVyteXe5pA-25fzMot_tTLRRiDw08ddkwCzuUT7UM1KnLLTm0rya-qmGg -->
+    <div class="square">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+    </div>
+</body>
+
+</html>
